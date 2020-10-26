@@ -14,4 +14,20 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // mutatorかaccessorのどちらかを使えば良い
+    //mutator ... databaseに保存する前にimageファイルのpathを整形する
+    // public function setPostImageAttribute($value)
+    // {
+    //     $this->attributes['post_image'] = asset($value); //assetをかけてdbに保存
+    // }
+
+    //accessor ... imgタグ内でassetを使わずに直接アクセスできる
+    public function getPostImageAttribute($value)
+    {
+        if (strpos($value, 'https://') !== false || strpos($value, 'http://') !== false) {
+            return $value;
+        }
+
+        return asset('storage/' . $value);
+    }
 }
