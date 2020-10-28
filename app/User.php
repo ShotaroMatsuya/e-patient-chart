@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'name', 'avatar', 'email', 'password'
     ];
 
     /**
@@ -37,6 +37,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //password mutatorの作成(passwordをdbに保存する際に必ず呼び出される関数：命名に規則がある)
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value); //バリデーション後のpasswordがここでhash化される
+    }
+    //avatarのaccessorの作成(dbからavatarのpathを取得して整形してoutput)
+    public function getAvatarAttribute($value)
+    {
+        if (strpos($value, 'https://') !== false || strpos($value, 'http://') !== false) {
+            return $value;
+        }
+
+        return asset('storage/' . $value);
+    }
+
+
     public function posts()
     {
         return $this->hasMany(Post::class);
