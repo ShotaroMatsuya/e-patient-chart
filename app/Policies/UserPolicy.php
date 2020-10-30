@@ -5,7 +5,8 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセットで作成)
+// Policyクラスをコントローラやrouteで使用するにはauthorizeメソッドやcanを用いる
 {
     use HandlesAuthorization;
 

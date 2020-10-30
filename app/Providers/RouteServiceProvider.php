@@ -45,6 +45,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
+        $this->mapPostsRoutes(); //新たに作成したroutesをregister
+        $this->mapUsersRoutes(); //新たに作成したroutesをregister
 
         //
     }
@@ -60,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->group(base_path('routes/web.php'));
+            ->group(base_path('routes/web/web.php')); //routeファイルの定義
     }
 
     /**
@@ -75,6 +77,20 @@ class RouteServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
-            ->group(base_path('routes/api.php'));
+            ->group(base_path('routes/api/api.php')); //api用のrouteファイルの定義
+    }
+    protected function mapPostsRoutes() //routes/web/posts.phpのロケーションを指定する
+    {
+        Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/posts.php')); //posts用のrouteファイルの定義
+    }
+    protected function mapUsersRoutes() //routes/web/users.phpのロケーションを指定する
+    {
+        Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/users.php')); //users
     }
 }
