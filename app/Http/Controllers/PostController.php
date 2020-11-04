@@ -13,7 +13,7 @@ class PostController extends Controller
     {
         // $posts = Post::all();
         // $posts = auth()->user()->posts();//posts()[メソッド]とするとそのあとにメソッドチェーンをつなぐことができる
-        $posts = auth()->user()->posts; //posts[プロパティ]とするとcollection型の配列が取得できる(foreachで回せる)
+        // $posts = auth()->user()->posts; //posts[プロパティ]とするとcollection型の配列が取得できる(foreachで回せる)
 
         $posts = auth()->user()->posts()->paginate(5);
         return view('admin.posts.index', ['posts' => $posts]);

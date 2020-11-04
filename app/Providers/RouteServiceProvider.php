@@ -47,6 +47,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapWebRoutes();
         $this->mapPostsRoutes(); //新たに作成したroutesをregister
         $this->mapUsersRoutes(); //新たに作成したroutesをregister
+        $this->mapRolesRoutes();
+        $this->mapPermissionsRoutes();
 
         //
     }
@@ -92,5 +94,19 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/web/users.php')); //users
+    }
+    protected function mapRolesRoutes()
+    {
+        Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/roles.php'));
+    }
+    protected function mapPermissionsRoutes()
+    {
+        Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/permissions.php'));
     }
 }

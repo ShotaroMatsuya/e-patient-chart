@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 
 class RoleMiddleware
+//Kernelクラスにregisterしてrouteで使用する
 {
     /**
      * Handle an incoming request.
