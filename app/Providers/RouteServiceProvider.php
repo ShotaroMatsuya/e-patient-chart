@@ -98,14 +98,14 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapRolesRoutes()
     {
         Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
-            ->middleware('web')
+            ->middleware(['web', 'auth', 'role:admin']) //ここにアクセス権限を追加
             ->namespace($this->namespace)
             ->group(base_path('routes/web/roles.php'));
     }
     protected function mapPermissionsRoutes()
     {
         Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
-            ->middleware('web')
+            ->middleware(['web', 'auth', 'role:admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
     }
