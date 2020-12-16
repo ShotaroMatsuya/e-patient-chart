@@ -10,8 +10,11 @@ $factory->define(Post::class, function (Faker $faker) {
     return [
         //
         'user_id' => factory(User::class),
-        'title' => $faker->sentence,
-        'post_image' => $faker->imageUrl('900', '300'),
-        'body' => $faker->paragraph
+        'name' => $faker->name,
+        'birthday' => $faker->dateTimeBetween('-80 years', '-20years')->format('Y-m-d'),
+        'sex' => $faker->randomElement($array = [0, 1]),
+        'clinical_diagnosis' => $faker->sentence(1),
+        'description' => $faker->paragraph,
+
     ];
 });

@@ -18,9 +18,11 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             //外部キー制約を結ぶことでrelationのある他のテーブルの変更を反映させることができる
             // onDelete('cascade')でusersのrecordが削除されるとそれに対応するpostsのrecordも削除される
-            $table->string('title');
-            $table->text('post_image')->nullable();
-            $table->text('body');
+            $table->string('name');
+            $table->date('birthday');
+            $table->tinyInteger('sex');
+            $table->string('clinical_diagnosis');
+            $table->text('description');
             $table->timestamps();
         });
     }

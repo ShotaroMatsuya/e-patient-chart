@@ -26,9 +26,10 @@
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>Owner</th>
-                  <th>Title</th>
-                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Birthday</th>
+                  <th>Sex</th>
+                  <th>Clinical-diagnosis</th>
                   <th>Created At</th>
                   <th>Updated At</th>
                   <th>Delete</th>
@@ -36,13 +37,14 @@
               </thead>
               <tfoot>
                 <tr>
-                <th>Id</th>
-                <th>Owner</th>
-                  <th>Title</th>
-                  <th>Image</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                  <th>Delete</th>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>Sex</th>
+                    <th>Clinical-diagnosis</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Delete</th>
 
                 </tr>
               </tfoot>
@@ -50,9 +52,10 @@
                 @foreach ($posts as $post)
                 <tr>
                     <td>{{$post->id}}</td>
-                    <td>{{$post->user->name}}</td>
-                    <td><a href="{{route('post.edit',$post->id)}}">{{$post->title}}</a></td>
-                    <td><img height="100px" src="{{$post->post_image}}" alt=""></td>
+                    <td>{{$post->name}}</td>
+                    <td>{{$post->birthday}}</td>
+                    <td>{{$post->sex == 0 ? 'male':'female'}}</td>
+                    <td>{{$post->clinical_diagnosis}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>
                     <td>
@@ -78,7 +81,7 @@
       </div>
       <div class="d-flex">
           <div class="mx-auto">
-              {{$posts->links()}}
+              {{-- {{$posts->links()}} --}}
 
           </div>
       </div>
@@ -88,7 +91,7 @@
   <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
 
   <!-- Page level custom scripts -->
-  {{-- <script src="{{asset('js/demo/datatables-demo.js')}}"></script> --}}
+  <script src="{{asset('js/demo/datatables-demo.js')}}"></script>
 
       @endsection
 

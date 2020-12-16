@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
@@ -11,11 +12,13 @@ class PostController extends Controller
     //
     public function index()
     {
-        // $posts = Post::all();
+        $posts = Post::all();
         // $posts = auth()->user()->posts();//posts()[メソッド]とするとそのあとにメソッドチェーンをつなぐことができる
         // $posts = auth()->user()->posts; //posts[プロパティ]とするとcollection型の配列が取得できる(foreachで回せる)
 
-        $posts = auth()->user()->posts()->paginate(5);
+        // $posts = DB::table('posts')->paginate(5);
+        // $posts = auth()->user()->posts()->paginate(5);
+        // dd($posts);
         return view('admin.posts.index', ['posts' => $posts]);
     }
     public function show(Post $post)
