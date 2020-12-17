@@ -10,6 +10,11 @@ class Post extends Model
     //
     protected $guarded = [];
     //$fillableはホワイトリスト,$guardedはブラックリスト
+    protected $dates = [
+        'birthday',
+        'created_at',
+        'updated_at'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

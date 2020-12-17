@@ -9,7 +9,7 @@
         </div>
         <div class="form-group">
             <label for="birthday">Birthday</label>
-            <input type="number" class="form-control" name="birthday" id="birthday" aria-describedby="" placeholder="Enter birthday">
+            <input type="text" class="form-control" name="birthday" id="birthday" aria-describedby="" placeholder="Enter birthday">
         </div>
         <div class="form-group">
             <label for="sex">sex</label>

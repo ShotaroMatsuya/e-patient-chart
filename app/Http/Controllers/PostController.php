@@ -25,7 +25,7 @@ class PostController extends Controller
     {
         // dd($id);
         // Post::findOrFail($id);
-        return view('blog-post', ['post' => $post]);
+        return view('admin.posts.edit', ['post' => $post]);
     }
     public function create()
     {
@@ -40,20 +40,22 @@ class PostController extends Controller
         // auth()->user();
         // dd(request()->all());
         $inputs = request()->validate([
-            'title' => 'required|min:8|max:255',
+            'name' => 'required|min:8|max:255',
             // 'post_image'=>'mimes:jpeg,png,bmp'
-            'post_image' => 'file',
-            'body' => 'required'
+            'birthday' => 'required',
+            'sex' => 'required',
+            'clinical_diagnosis' => 'required',
+            'description' => 'required'
 
         ]);
-        if (request('post_image')) {
-            $inputs['post_image'] = request('post_image')->store('images'); //filesystemで設定されいてるpathの直下にimagesというフォルダを作りそのなかにimageファイルを格納する(デフォルトだとstorage直下に生成)
-        }
+        // if (request('post_image')) {
+        //     $inputs['post_image'] = request('post_image')->store('images'); //filesystemで設定されいてるpathの直下にimagesというフォルダを作りそのなかにimageファイルを格納する(デフォルトだとstorage直下に生成)
+        // }
 
         // dd($request->post_image);
 
         auth()->user()->posts()->create($inputs);
-        session()->flash('post-created-message', 'Post with title was created. ' . $inputs['title']);
+        session()->flash('post-created-message', 'Post with title was created. ' . $inputs['name']);
 
         return redirect()->route('post.index');
     }
@@ -80,19 +82,25 @@ class PostController extends Controller
     public function update(Post $post)
     {
         $inputs = request()->validate([
-            'title' => 'required|min:8|max:255',
+            'name' => 'required|min:8|max:255',
             // 'post_image'=>'mimes:jpeg,png,bmp'
-            'post_image' => 'file',
-            'body' => 'required'
+            'birthday' => 'required',
+            'sex' => 'required',
+            'clinical_diagnosis' => 'required',
+            'description' => 'required'
 
-        ]); //連想配列として取得されている
+        ]);
+        //連想配列として取得されている
         //saveメソッドを使うためにはinstance(オブジェクト)にする必要がある
-        if (request('post_image')) {
-            $inputs['post_image'] = request('post_image')->store('images'); //filesystemで設定されいてるpathの直下にimagesというフォルダを作りそのなかにimageファイルを格納する(デフォルトだとstorage直下に生成)
-            $post->post_image = $inputs['post_image'];
-        }
-        $post->title = $inputs['title'];
-        $post->body = $inputs['body'];
+        // if (request('post_image')) {
+        //     $inputs['post_image'] = request('post_image')->store('images'); //filesystemで設定されいてるpathの直下にimagesというフォルダを作りそのなかにimageファイルを格納する(デフォルトだとstorage直下に生成)
+        //     $post->post_image = $inputs['post_image'];
+        // }
+        $post->name = $inputs['name'];
+        $post->birthday = $inputs['birthday'];
+        $post->sex = $inputs['sex'];
+        $post->clinical_diagnosis = $inputs['clinical_diagnosis'];
+        $post->description = $inputs['description'];
 
         $this->authorize('update', $post); //PostPolicyクラスで定義されているmethodをセット、第２引数にPostモデルをセット
 

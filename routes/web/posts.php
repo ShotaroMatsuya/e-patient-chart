@@ -2,9 +2,9 @@
 //postsページのrouteはすべてここにまとめる
 use Illuminate\Support\Facades\Route;
 
-Route::get('/post/{post}', 'PostController@show')->name('post');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/post/{post}', 'PostController@show')->name('post');
 
     Route::get('/posts', 'PostController@index')->name('post.index');
     Route::get('/posts/create', 'PostController@create')->name('post.create');

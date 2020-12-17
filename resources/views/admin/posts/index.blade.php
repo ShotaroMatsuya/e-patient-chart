@@ -25,26 +25,28 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Name</th>
-                  <th>Birthday</th>
-                  <th>Sex</th>
-                  <th>Clinical-diagnosis</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                  <th>Delete</th>
+                    <th>Id</th>
+                    <th>名前</th>
+                    <th>生年月日</th>
+                    <th>年齢</th>
+                    <th>性別</th>
+                    <th>臨床診断名</th>
+                    <th>初診日</th>
+                    <th>更新日</th>
+                    <th>削除</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Birthday</th>
-                    <th>Sex</th>
-                    <th>Clinical-diagnosis</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
-                    <th>Delete</th>
+                    <th>名前</th>
+                    <th>生年月日</th>
+                    <th>年齢</th>
+                    <th>性別</th>
+                    <th>臨床診断名</th>
+                    <th>初診日</th>
+                    <th>更新日</th>
+                    <th>削除</th>
 
                 </tr>
               </tfoot>
@@ -52,11 +54,12 @@
                 @foreach ($posts as $post)
                 <tr>
                     <td>{{$post->id}}</td>
-                    <td>{{$post->name}}</td>
-                    <td>{{$post->birthday}}</td>
-                    <td>{{$post->sex == 0 ? 'male':'female'}}</td>
+                    <td><a href="{{route('post',$post->id)}}">{{$post->name}}</a></td>
+                    <td>{{$post->birthday->format('Y-m-d')}}</td>
+                    <td>{{$post->birthday->diffForHumans()}}</td>
+                    <td>{{$post->sex == 0 ? '男':'女'}}</td>
                     <td>{{$post->clinical_diagnosis}}</td>
-                    <td>{{$post->created_at->diffForHumans()}}</td>
+                    <td>{{$post->created_at->format('Y-m-d')}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>
                     <td>
                         {{-- PostPolicyクラスに定義されているviewをセット --}}
