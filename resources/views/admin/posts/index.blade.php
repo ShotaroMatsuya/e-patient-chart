@@ -33,7 +33,14 @@
                     <th>臨床診断名</th>
                     <th>初診日</th>
                     <th>更新日</th>
-                    <th>削除</th>
+                    <th>
+                        @if (auth()->user()->isAdmin())
+                        削除
+                        @else
+                        詳細
+
+                        @endif
+                    </th>
                 </tr>
               </thead>
               <tfoot>
@@ -46,7 +53,14 @@
                     <th>臨床診断名</th>
                     <th>初診日</th>
                     <th>更新日</th>
-                    <th>削除</th>
+                    <th>
+                        @if (auth()->user()->isAdmin())
+                        削除
+                        @else
+                        詳細
+
+                        @endif
+                    </th>
 
                 </tr>
               </tfoot>
@@ -65,7 +79,7 @@
                         {{-- PostPolicyクラスに定義されているviewをセット --}}
                         {{-- @can('view',$post) --}}
 
-
+                        @if (auth()->user()->isAdmin())
                     <form method="POST" action="{{route('post.destroy',$post->id)}}" enctype="multipart/form-data">
                             @csrf
                             @method('DELETE')
@@ -73,6 +87,9 @@
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         {{-- @endcan --}}
+                        @else
+                        <a href="{{route('post',$post->id)}}" class="btn btn-success">詳細</a>
+                        @endif
                     </td>
                 </tr>
 
