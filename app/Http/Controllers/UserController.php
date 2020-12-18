@@ -41,7 +41,6 @@ class UserController extends Controller
     }
     public function attach(User $user)
     {
-
         // dd($user); //Userモデルのインスタンスを取得
         // dd(request('role')); //フォームから入力された値を取得
         $user->roles()->attach(request('role'));

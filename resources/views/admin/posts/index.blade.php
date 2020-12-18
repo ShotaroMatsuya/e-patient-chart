@@ -1,6 +1,6 @@
 <x-admin-master>
     @section('content')
-    <h1>All Posts</h1>
+    <h1>All Patients</h1>
     {{-- @if (Session::has('message')) --}}
     @if(session('message'))
     <div class="alert alert-danger">

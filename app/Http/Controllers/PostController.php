@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -29,9 +30,11 @@ class PostController extends Controller
     }
     public function create()
     {
+        $doctors = User::all()->whereNotNull('major');
+        // dd($doctors);
         $this->authorize('create', Post::class); //PostPolicyクラスで定義されているmethodをセット、第２引数にPostモデルをセット
 
-        return view('admin.posts.create');
+        return view('admin.posts.create', ['doctors' => $doctors]);
     }
     public function store(Request $request)
     {
@@ -45,17 +48,21 @@ class PostController extends Controller
             'birthday' => 'required',
             'sex' => 'required',
             'clinical_diagnosis' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'user_id' => 'required'
 
         ]);
+
         // if (request('post_image')) {
         //     $inputs['post_image'] = request('post_image')->store('images'); //filesystemで設定されいてるpathの直下にimagesというフォルダを作りそのなかにimageファイルを格納する(デフォルトだとstorage直下に生成)
         // }
 
         // dd($request->post_image);
 
-        auth()->user()->posts()->create($inputs);
-        session()->flash('post-created-message', 'Post with title was created. ' . $inputs['name']);
+        // auth()->user()->posts()->create($inputs);
+        $post = Post::create($inputs);
+        // dd($post);
+        session()->flash('post-created-message', 'Post with title was created. ' . $post->name);
 
         return redirect()->route('post.index');
     }

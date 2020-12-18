@@ -16,8 +16,12 @@ class PostSeeder extends Seeder
         // factory('App\User')->create()->each(function ($user) {
         //     $user->posts()->save(factory('App\Post')->make());
         // }); //userとそれと関連したpostsも作成
-        factory('App\Post', 100)->create()->each(function ($post) {
-            $post->user()->save(factory('App\User')->make());
-        });
+        // factory('App\Post', 100)->create()->each(function ($post) {
+        //     $post->user()->save(factory('App\User')->make());
+        // });
+        // factory('App\Post', 30)->create()->each(function ($post) {
+        //     $post->user()->save(factory('App\User')->make());
+        // });
+        factory('App\Post', 100)->create();
     }
 }
