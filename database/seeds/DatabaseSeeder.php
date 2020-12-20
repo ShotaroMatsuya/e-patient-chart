@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         // }); //userとそれと関連したpostsも作成
         $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
+        $this->call(OrderSeeder::class);
     }
 }

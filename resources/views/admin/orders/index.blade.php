@@ -16,71 +16,47 @@
         {{session('post-updated-message')}}
     </div>
     @endif
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-        </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>名前</th>
-                    <th>生年月日</th>
-                    <th>年齢</th>
-                    <th>性別</th>
-                    <th>臨床診断名</th>
-                    <th>初診日</th>
-                    <th>更新日</th>
-                    <th>
-                        @if (auth()->user()->isAdmin())
-                        削除
-                        @else
-                        詳細
 
-                        @endif
-                    </th>
-                </tr>
-              </thead>
-              <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>名前</th>
-                    <th>生年月日</th>
-                    <th>年齢</th>
-                    <th>性別</th>
-                    <th>臨床診断名</th>
-                    <th>初診日</th>
-                    <th>更新日</th>
-                    <th>
-                        @if (auth()->user()->isAdmin())
-                        削除
-                        @else
-                        詳細
-
-                        @endif
-                    </th>
-
-                </tr>
-              </tfoot>
-              <tbody>
-                @foreach ($posts as $post)
-                <tr>
-                    <td>{{$post->id}}</td>
-                    <td><a href="{{route('post',$post->id)}}">{{$post->name}}</a></td>
-                    <td>{{$post->birthday->format('Y-m-d')}}</td>
-                    <td>{{$post->birthday->diffForHumans()}}</td>
-                    <td>{{$post->sex == 0 ? '男':'女'}}</td>
-                    <td>{{$post->clinical_diagnosis}}</td>
-                    <td>{{$post->created_at->format('Y-m-d')}}</td>
-                    <td>{{$post->updated_at->diffForHumans()}}</td>
-                    <td>
-                        {{-- PostPolicyクラスに定義されているviewをセット --}}
-                        {{-- @can('view',$post) --}}
-
-                        @if (auth()->user()->isAdmin())
-                    <form method="POST" action="{{route('post.destroy',$post->id)}}" enctype="multipart/form-data">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order List</h6>
+                </div>
+                <div class="card-body">
+                    @if ($orders->count() > 0)
+                    <table>
+                        <thead>
+                            <th>状態</th>
+                            <th>検査施行日</th>
+                            <th>検査Id</th>
+                            <th>検査名</th>
+                            <th>患者名</th>
+                            <th>担当医</th>
+                            <th>詳細</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($orders as $order)
+                                <tr>
+                                    <td>
+                                        {{$order->isFinished == 0 ?'未完':'完了'}}
+                                    </td>
+                                    <td>
+                                        {{$order->executed_at->format('Y-m-d')}}
+                                    </td>
+                                    <td>
+                                        {{$order->id}}
+                                    </td>
+                                    <td>
+                                        {{$order->exam()->name}}
+                                    </td>
+                                    <td>
+                                        {{$order->post()->name}}
+                                    </td>
+                                    <td>
+                                        {{$order->post()->user()->name}}
+                                    </td>
+                                    <td>
+                                        @if (auth()->user()->isAdmin())
+                    <form method="POST" action="{{route('order.destroy',$order->id)}}">
                             @csrf
                             @method('DELETE')
 
@@ -88,34 +64,16 @@
                         </form>
                         {{-- @endcan --}}
                         @else
-                        <a href="{{route('post',$post->id)}}" class="btn btn-success">詳細</a>
+                        <a href="{{route('order.edit',$order->id)}}" class="btn btn-success">詳細</a>
                         @endif
-                    </td>
-                </tr>
-
-                @endforeach
-              </tbody>
-            </table>
-            <div class="card card-default">
-                <div class="card-header">Orders List</div>
-                <div class="card-body">
-                    @if ($orders->count() > 0)
-                        <thead>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th></th>
-                            <th></th>
-                        </thead>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                     @endif
                 </div>
             </div>
-            @foreach ($orders as $order)
-                <div class="card"></div>
-            @endforeach
-          </div>
-        </div>
-      </div>
       <div class="d-flex">
           <div class="mx-auto">
               {{-- {{$posts->links()}} --}}

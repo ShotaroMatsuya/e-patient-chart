@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapUsersRoutes(); //新たに作成したroutesをregister
         $this->mapRolesRoutes();
         $this->mapPermissionsRoutes();
+        $this->mapOrdersRoutes();
 
         //
     }
@@ -108,5 +109,12 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware(['web', 'auth', 'role:admin'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/permissions.php'));
+    }
+    protected function mapOrdersRoutes()
+    {
+        Route::prefix('admin') //ここで指定されたすべてのrouteには/admin/が頭に追加される
+            ->middleware(['web', 'auth', 'role:admin'])
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web/orders.php'));
     }
 }

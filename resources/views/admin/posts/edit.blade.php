@@ -44,7 +44,7 @@
             </div>
             <div class="col-lg-4 col-md-6 p-3">
                 <h5>臨床検査情報</h5>
-                <form action="">
+                <form action="{{route('order.create',$post->id)}}">
 
                     <button type="submit" class="btn btn-lg btn-success">Orderする</button>
 
