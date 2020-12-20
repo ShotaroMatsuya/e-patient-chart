@@ -7,13 +7,13 @@
         {{-- {{Session::get('message')}} --}}
         {{session('message')}}
     </div>
-    @elseif(session('post-created-message'))
+    @elseif(session('order-created-message'))
     <div class="alert alert-success">
-        {{session('post-created-message')}}
+        {{session('order-created-message')}}
     </div>
-    @elseif(session('post-updated-message'))
+    @elseif(session('order-updated-message'))
     <div class="alert alert-success">
-        {{session('post-updated-message')}}
+        {{session('order-updated-message')}}
     </div>
     @endif
 
@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-body">
                     @if ($orders->count() > 0)
-                    <table>
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <th>状態</th>
                             <th>検査施行日</th>
@@ -36,41 +36,47 @@
                         <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td>
-                                        {{$order->isFinished == 0 ?'未完':'完了'}}
+                                    <td class="text-center">
+                                        @if ($order->isFinished == 0)
+                                        <i class="text-danger fa fa-circle"></i>
+                                        @else
+                                        <i class="text-success fa fa-clipboard-check"></i>
+                                        @endif
                                     </td>
                                     <td>
-                                        {{$order->executed_at->format('Y-m-d')}}
+                                        {{$order->executed_at}}
                                     </td>
                                     <td>
                                         {{$order->id}}
                                     </td>
                                     <td>
-                                        {{$order->exam()->name}}
+                                        {{$order->exam->name}}
                                     </td>
                                     <td>
-                                        {{$order->post()->name}}
+                                        {{$order->post->name}}
                                     </td>
                                     <td>
-                                        {{$order->post()->user()->name}}
+                                        {{$order->post->user->name}}
                                     </td>
                                     <td>
-                                        @if (auth()->user()->isAdmin())
-                    <form method="POST" action="{{route('order.destroy',$order->id)}}">
+                                        @if (!auth()->user()->isTester())
+                    <form method="POST" action="{{route('orders.destroy',$order->id)}}">
                             @csrf
                             @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                         {{-- @endcan --}}
-                        @else
-                        <a href="{{route('order.edit',$order->id)}}" class="btn btn-success">詳細</a>
+                        @elseif(auth()->user()->isTester())
+                        <a href="{{route('orders.edit',$order->id)}}" class="btn btn-success">詳細</a>
                         @endif
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+                    <h1>Order Not found !!</h1>
                     @endif
                 </div>
             </div>

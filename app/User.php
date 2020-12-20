@@ -85,4 +85,10 @@ class User extends Authenticatable
             }
         }
     }
+    public function isTester()
+    {
+        if ($this->major == '病理部' || $this->major == '放射線科' || $this->major == '内視鏡科' || $this->isAdmin()) {
+            return true;
+        }
+    }
 }

@@ -15,7 +15,7 @@ class OrderSeeder extends Seeder
     {
         //
         $exam1 = Exam::create([
-            'name' => '病理学'
+            'name' => '病理部'
         ]);
         $exam2 = Exam::create([
             'name' => '内視鏡科'

@@ -11,8 +11,9 @@
                 <p>担当医:{{$post->user->name}}</p>
             </div>
             <div class="card-footer">
-                <form action="{{route('orders.store')}}">
+                <form method="POST" action="{{route('orders.store')}}">
                     @csrf
+                    <input type="hidden" value="{{$post->id}}" name="post_id">
                     <div class="form-group">
                         <label for="exam_id">検査名</label>
                         <select  name="exam_id">

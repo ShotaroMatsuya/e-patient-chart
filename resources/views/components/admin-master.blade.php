@@ -89,6 +89,8 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
+      <x-admin.sidebar.admin-sidebar-orders-links></x-admin.sidebar.admin-sidebar-orders-links>
+
       <li class="nav-item active">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
