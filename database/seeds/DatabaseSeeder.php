@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         DB::table('posts')->truncate();
         DB::table('roles')->truncate();
         DB::table('permissions')->truncate();
+        DB::table('orders')->truncate();
+        DB::table('results')->truncate();
+        DB::table('exams')->truncate();
 
         // $this->call(UsersTableSeeder::class);
 

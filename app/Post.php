@@ -19,6 +19,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
     // mutatorかaccessorのどちらかを使えば良い
     //mutator ... databaseに保存する前にimageファイルのpathを整形する
     // public function setPostImageAttribute($value)
