@@ -1,6 +1,17 @@
 <x-admin-master>
     @include('includes.tinyeditor')
     @section('content')
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <li class="list-group-item">
+            {{$error}}
+        </li>
+        @endforeach
+
+    </div>
+
+    @endif
         <h1>Create</h1>
 <form method="POST" action="{{route('post.store')}}" enctype="multipart/form-data">
         @csrf
@@ -8,6 +19,11 @@
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" id="name" aria-describedby="" placeholder="Enter name">
         </div>
+        @if (auth()->user()->isDoctor())
+        <div class="form-group">
+            <label for="user_id">担当Dr.</label>
+            <p class="lead bold">{{auth()->user()->name}}</p>
+        @else
         <div class="form-group">
             <label for="user_id">担当Dr.</label>
             <select name="user_id" id="user_id">
@@ -21,6 +37,8 @@
 
             </select>
         </div>
+
+        @endif
         <div class="form-group">
             <label for="birthday">Birthday</label>
         <input type="text" class="form-control" name="birthday" id="birthday" value="{{isset($post) ? $post->birthday : ''}}">

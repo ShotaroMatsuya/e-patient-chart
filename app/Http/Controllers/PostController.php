@@ -62,6 +62,7 @@ class PostController extends Controller
         // auth()->user()->posts()->create($inputs);
         $post = Post::create($inputs);
         // dd($post);
+
         session()->flash('post-created-message', 'Post with title was created. ' . $post->name);
 
         return redirect()->route('post.index');
@@ -89,7 +90,7 @@ class PostController extends Controller
     public function update(Post $post)
     {
         $inputs = request()->validate([
-            'name' => 'required|min:8|max:255',
+            'name' => 'required|min:3|max:255',
             // 'post_image'=>'mimes:jpeg,png,bmp'
             'birthday' => 'required',
             'sex' => 'required',

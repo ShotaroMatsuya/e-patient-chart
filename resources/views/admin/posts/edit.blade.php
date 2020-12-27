@@ -1,6 +1,17 @@
 <x-admin-master>
     @include('includes.tinyeditor')
     @section('content')
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <li class="list-group-item">
+            {{$error}}
+        </li>
+        @endforeach
+
+    </div>
+
+    @endif
         <h4>患者情報:<span class="mx-3 bold h2">{{$post->name}}様</span></h1>
         <p class="lead">初診日: {{$post->created_at}}</p>
         <p class="lead">最終更新日: {{$post->updated_at->diffForHumans()}}</p>

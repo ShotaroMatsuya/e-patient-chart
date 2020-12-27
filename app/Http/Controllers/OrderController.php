@@ -39,4 +39,9 @@ class OrderController extends Controller
 
         return redirect()->route('orders.index');
     }
+    public function edit(Order $order)
+    {
+
+        return view('orders.edit')->with('order', $order);
+    }
 }
