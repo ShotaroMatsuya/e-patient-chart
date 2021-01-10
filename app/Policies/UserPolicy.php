@@ -40,6 +40,9 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
         if ($user->userHasRole('manager')) {
             return true;
         }
+        if ($user->id == $model->id) {
+            return true;
+        }
         // return $user->id == $model->id;//アクセスユーザーと表示しているuserのidが一致していたらtrue
         // return $user->userHasRole('admin') ?: $user->id == $model->id; //上記に加えてadminもアクセス可能
     }

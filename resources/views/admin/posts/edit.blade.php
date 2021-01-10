@@ -39,8 +39,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="clinical-diagnosis">臨床診断名</label>
-                        <input type="text" class="form-control" name="clinical-diagnosis" id="clinical-diagnosis" aria-describedby="" placeholder="Enter Diagnosis" value="{{$post->clinical_diagnosis}}">
+                            <label for="clinical_diagnosis">臨床診断名</label>
+                        <input type="text" class="form-control" name="clinical_diagnosis" id="clinical_diagnosis" aria-describedby="" placeholder="Enter Diagnosis" value="{{$post->clinical_diagnosis}}">
                         </div>
 
                         <div class="form-group">

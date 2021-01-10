@@ -27,58 +27,58 @@ class UserSeeder extends Seeder
             ]);
         }
         $user2 = User::create([
-            'username' => '山田 太郎',
-            'name' => 'Taro Yamada',
+            'username' => 'Taro Yamada',
+            'name' => '山田　太郎',
             'email' => 'yamada@taro.com',
             'major' => '消化器外科',
             'password' => 'password'
         ]);
         $user3 = User::create([
-            'username' => '田中 次郎',
-            'name' => 'Jiro Tanaka',
+            'name' => '田中 次郎',
+            'username' => 'Jiro Tanaka',
             'major' => '整形外科',
 
             'email' => 'jiro@tanaka.com',
             'password' => 'password'
         ]);
         $user4 = User::create([
-            'username' => '佐藤 花子',
-            'name' => 'hanako satoh',
+            'name' => '佐藤 花子',
+            'username' => 'hanako satoh',
             'email' => 'hanako@sato.com',
             'password' => 'password'
         ]);
 
         $user5 = User::create([
-            'username' => '斎藤 剛',
-            'name' => 'takesi saito',
+            'name' => '斎藤 剛',
+            'username' => 'takesi saito',
             'major' => '精神科',
 
             'email' => 'takesi@saito.com',
             'password' => 'password'
         ]);
         $user6 = User::create([
-            'username' => '鈴木 海子',
-            'name' => 'umiko suzuki',
+            'name' => '鈴木 海子',
+            'username' => 'umiko suzuki',
             'email' => 'umiko@suzuki.com',
             'password' => 'password'
         ]);
         $user7 = User::create([
-            'username' => '山崎 大樹',
-            'name' => 'daiki yamazaki',
+            'name' => '山崎 大樹',
+            'username' => 'daiki yamazaki',
             'major' => '腎臓内科',
 
             'email' => 'daiki@yamasaki.com',
             'password' => 'password'
         ]);
         $user8 = User::create([
-            'username' => '村田 まさこ',
-            'name' => 'masako murata',
+            'name' => '村田 まさこ',
+            'username' => 'masako murata',
             'email' => 'masako@murata.com',
             'password' => 'password'
         ]);
         $user9 = User::create([
-            'username' => '木村 正男',
-            'name' => 'masao kimura',
+            'name' => '木村 正男',
+            'username' => 'masao kimura',
             'email' => 'masao@kimura.com',
             'password' => 'password'
         ]);

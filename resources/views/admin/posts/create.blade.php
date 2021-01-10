@@ -15,9 +15,10 @@
         <h1>Create</h1>
 <form method="POST" action="{{route('post.store')}}" enctype="multipart/form-data">
         @csrf
+        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" name="name" id="name" aria-describedby="" placeholder="Enter name">
+            <input type="text" class="form-control" name="name" id="name" aria-describedby="" placeholder="Enter name" value="{{isset($post)?$post->name:''}}">
         </div>
         @if (auth()->user()->isDoctor())
         <div class="form-group">

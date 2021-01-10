@@ -32,7 +32,7 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
      */
     public function view(User $user, Post $post)
     {
-        //
+        //自分の患者のみ見れる
         return $user->id === $post->user_id;
     }
 

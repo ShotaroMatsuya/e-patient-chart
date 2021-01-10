@@ -70,7 +70,7 @@
                     <td>{{$post->id}}</td>
                     <td><a href="{{route('post',$post->id)}}">{{$post->name}}</a></td>
                     <td>{{$post->birthday->format('Y-m-d')}}</td>
-                    <td>{{$post->birthday->diffForHumans()}}</td>
+                    <td>{{$post->birthday->age}}</td>
                     <td>{{$post->sex == 0 ? '男':'女'}}</td>
                     <td>{{$post->clinical_diagnosis}}</td>
                     <td>{{$post->created_at->format('Y-m-d')}}</td>

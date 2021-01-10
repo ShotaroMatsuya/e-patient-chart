@@ -1,6 +1,11 @@
 <x-admin-master>
 
     @section('content')
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{session('success')}}
+        </div>
+    @endif
     @if($errors->any())
     <div class="alert alert-danger">
         @foreach ($errors->all() as $error)
@@ -12,18 +17,18 @@
     </div>
 
     @endif
-<h1>User Profile for  : {{$user->name}}</h1>
+    <div class="mb-4 d-flex align-items-center">
+        <img class="m-3" height="50px" src="{{Gravatar::src($user->email)}}" alt="">
+        <h1>User Profile for  : {{$user->name}}</h1>
+
+    </div>
 <div class="row">
     <div class="col-sm-6">
     <form action="{{route('user.profile.update',$user)}}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="mb-4">
-            <img class="img-profile rounded-circle" src="{{$user->avatar}}">
-            </div>
-            <div class="form-group">
-                <input type="file" name="avatar">
-            </div>
+
+
 
 
             <div class="form-group">
@@ -67,7 +72,8 @@
 
     </div>
 </div>
-<div class="row">
+<div class="row my-5">
+    <p class="lead">※以下はAdminのみ編集可能</p>
     <div class="col-sm-12">
         <div class="card shadow mb-4">
             <div class="card-header py-3">

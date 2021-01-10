@@ -43,7 +43,7 @@ class PostController extends Controller
         // auth()->user();
         // dd(request()->all());
         $inputs = request()->validate([
-            'name' => 'required|min:8|max:255',
+            'name' => 'required|min:3|max:255',
             // 'post_image'=>'mimes:jpeg,png,bmp'
             'birthday' => 'required',
             'sex' => 'required',
@@ -65,7 +65,8 @@ class PostController extends Controller
 
         session()->flash('post-created-message', 'Post with title was created. ' . $post->name);
 
-        return redirect()->route('post.index');
+
+        return redirect()->route('admin.index');
     }
     public function edit(Post $post)
     {
@@ -98,6 +99,7 @@ class PostController extends Controller
             'description' => 'required'
 
         ]);
+
         //連想配列として取得されている
         //saveメソッドを使うためにはinstance(オブジェクト)にする必要がある
         // if (request('post_image')) {
@@ -115,8 +117,8 @@ class PostController extends Controller
         $post->save(); //saveメソッドは新規作成時も更新時も同じ用に使用できる
         // $post->update([]);updateメソッドは更新時のみに使用でき、引数に配列をセットすることができる
         // auth()->user()->posts()->save($post); //userモデルで定義したrelationshipを用いてsaveするとuser情報もupdateされる
-        session()->flash('post-updated-message', 'Post was updated. ' . $inputs['title']);
+        session()->flash('post-updated-message', 'Patient was updated. ' . $inputs['name']);
 
-        return redirect()->route('post.index');
+        return redirect()->route('admin.index');
     }
 }
