@@ -22,6 +22,6 @@ class PostSeeder extends Seeder
         // factory('App\Post', 30)->create()->each(function ($post) {
         //     $post->user()->save(factory('App\User')->make());
         // });
-        factory('App\Post', 100)->create();
+        factory('App\Post', 200)->create();
     }
 }

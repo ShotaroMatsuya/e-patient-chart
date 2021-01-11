@@ -26,17 +26,17 @@
     <form action="{{route('user.profile.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="username">Username</label>
-            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" value="{{isset($user)?$user->username:''}}">
-            @error('username')
-            <div class="invalid-feedback">{{$message}}</div>
-            @enderror
-            </div>
-            <div class="form-group">
                 <label for="name">Name</label>
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{isset($user)?$user->name:''}}">
             @error('name')
             <div class="alert alert-danger">{{$message}}</div>
+            @enderror
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+            <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="username" value="{{isset($user)?$user->username:''}}">
+            @error('username')
+            <div class="invalid-feedback">{{$message}}</div>
             @enderror
             </div>
             <div class="form-group">
@@ -47,22 +47,41 @@
             @enderror
             </div>
             <div class="form-group">
-                <label for="role_id">役職</label>
-                <input type="radio" name="role_id" value="1" id="admin">
-                <label for="admin">アドミン</label>
-                <input type="radio" name="role_id" value="2" id="doctor">
-                <label for="doctor">医師</label>
-                <input type="radio" name="role_id" value="3" id="nurse">
-                <label for="nurse">看護師</label>
-                <input type="radio" name="role_id" value="4" id="officer">
-                <label for="officer">医療事務</label>
-                <input type="radio" name="role_id" value="6" id="technologist">
-                <label for="technologist">検査技師</label>
-                <input type="radio" name="role_id" value="5" id="student">
-                <label for="student">医学生</label>
+                <div class="card">
+                    <div class="card-header">
+                        <label for="role_id">役職</label>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="1" id="admin">
+                            <label class="form-check-label" for="admin">アドミン</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="2" id="doctor">
+                            <label class="form-check-label" for="doctor">医師</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="3" id="nurse">
+                            <label class="form-check-label" for="nurse">看護師</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="4" id="officer">
+                            <label class="form-check-label" for="officer">医療事務</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="6" id="technologist">
+                            <label class="form-check-label" for="technologist">検査技師</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role_id" value="5" id="student">
+                            <label class="form-check-label" for="student">学生</label>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="form-group">
-                <label for="major">専門 ※医師のみ</label>
+                <label for="major">専門 (※医師のみ)</label>
                 <select name="major" id="major">
                     <option value="">なし</option>
                     <option value="消化器内科">消化器内科</option>

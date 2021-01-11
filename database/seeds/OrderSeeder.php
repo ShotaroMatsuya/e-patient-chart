@@ -23,6 +23,6 @@ class OrderSeeder extends Seeder
         $exam3 = Exam::create([
             'name' => '放射線科'
         ]);
-        factory(App\Order::class, 10)->create();
+        factory(App\Order::class, 20)->create();
     }
 }

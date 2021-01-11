@@ -25,26 +25,19 @@
                     @if ($orders->count() > 0)
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <th>状態</th>
                             <th>検査施行日</th>
                             <th>検査Id</th>
                             <th>検査名</th>
                             <th>患者名</th>
                             <th>担当医</th>
+                            <th>状態</th>
                             <th>詳細</th>
                         </thead>
                         <tbody>
                             @foreach ($orders as $order)
                                 <tr>
-                                    <td class="text-center">
-                                        @if ($order->isFinished == 0)
-                                        <i class="text-danger fa fa-circle"></i>
-                                        @else
-                                        <i class="text-success fa fa-clipboard-check"></i>
-                                        @endif
-                                    </td>
                                     <td>
-                                        {{$order->executed_at}}
+                                        {{$order->executed_at->format('Y年m月d日h時m分')}}
                                     </td>
                                     <td>
                                         {{$order->id}}
@@ -58,11 +51,18 @@
                                     <td>
                                         {{$order->post->user->name}}
                                     </td>
+                                    <td class="text-center">
+                                        @if ($order->isFinished == 0)
+                                        <i class="text-danger fa fa-circle">未</i>
+                                        @else
+                                        <i class="text-success fa fa-clipboard-check">了</i>
+                                        @endif
+                                    </td>
                                     <td>
                                         @if (!auth()->user()->isTester())
-                    <form method="POST" action="{{route('orders.destroy',$order->id)}}">
-                            @csrf
-                            @method('DELETE')
+                                        <form method="POST" action="{{route('orders.destroy',$order->id)}}">
+                                            @csrf
+                                            @method('DELETE')
 
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>

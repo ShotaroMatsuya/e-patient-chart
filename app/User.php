@@ -101,7 +101,7 @@ class User extends Authenticatable
     }
     public function userHasPermission($permission_name)
     {
-        foreach ($this->roles()->permissions as $permission) {
+        foreach ($this->permissions as $permission) {
             //入力値を小文字に変換して文字列を比較
             if (Str::lower($permission_name) == Str::lower($permission->name)) {
                 return true;

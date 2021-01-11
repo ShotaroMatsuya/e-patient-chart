@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 $factory->define(Post::class, function (Faker $faker) {
     return [
         //
-        'user_id' => $faker->numberBetween(1, 10),
+        'user_id' => $faker->numberBetween(1, 20),
         'name' => $faker->name,
         'birthday' => $faker->dateTimeBetween('-80 years', '-20years')->format('Y-m-d'),
         'sex' => $faker->randomElement($array = [0, 1]),

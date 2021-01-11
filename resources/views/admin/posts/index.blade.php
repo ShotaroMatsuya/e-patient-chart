@@ -25,6 +25,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
+                    <th>更新日</th>
                     <th>Id</th>
                     <th>名前</th>
                     <th>生年月日</th>
@@ -32,7 +33,6 @@
                     <th>性別</th>
                     <th>臨床診断名</th>
                     <th>初診日</th>
-                    <th>更新日</th>
                     <th>
                         @if (auth()->user()->isAdmin())
                         削除
@@ -45,6 +45,7 @@
               </thead>
               <tfoot>
                 <tr>
+                    <th>更新日</th>
                     <th>Id</th>
                     <th>名前</th>
                     <th>生年月日</th>
@@ -52,7 +53,6 @@
                     <th>性別</th>
                     <th>臨床診断名</th>
                     <th>初診日</th>
-                    <th>更新日</th>
                     <th>
                         @if (auth()->user()->isAdmin())
                         削除
@@ -67,6 +67,7 @@
               <tbody>
                 @foreach ($posts as $post)
                 <tr>
+                    <td>{{$post->updated_at->diffForHumans()}}</td>
                     <td>{{$post->id}}</td>
                     <td><a href="{{route('post',$post->id)}}">{{$post->name}}</a></td>
                     <td>{{$post->birthday->format('Y-m-d')}}</td>
@@ -74,7 +75,6 @@
                     <td>{{$post->sex == 0 ? '男':'女'}}</td>
                     <td>{{$post->clinical_diagnosis}}</td>
                     <td>{{$post->created_at->format('Y-m-d')}}</td>
-                    <td>{{$post->updated_at->diffForHumans()}}</td>
                     <td>
                         {{-- PostPolicyクラスに定義されているviewをセット --}}
                         {{-- @can('view',$post) --}}

@@ -50,9 +50,9 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
      */
     public function create(User $user)
     {
-        // if ($user->userHasPermission('Create-patient')) {
-        //     return true;
-        // }
+        if ($user->userHasPermission('Create-patient')) {
+            return true;
+        }
     }
 
     /**

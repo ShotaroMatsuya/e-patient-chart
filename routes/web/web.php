@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-
+Route::get('/login/guest', 'Auth\LoginController@guestLogin');
 Route::middleware('auth')->group(function () {
 
 

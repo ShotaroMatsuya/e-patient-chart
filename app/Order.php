@@ -8,6 +8,7 @@ class Order extends Model
 {
     //
     protected $guarded = [];
+    protected $dates = ['executed_at'];
     public function exam()
     {
         return $this->belongsTo(Exam::class);

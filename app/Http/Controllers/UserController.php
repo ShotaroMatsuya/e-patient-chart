@@ -31,13 +31,31 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'alpha_dash'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            'major' => ['required', 'string'],
-
-
+            'major' => ['string', 'nullable'],
             'password' => ['min:6', 'max:255', 'confirmed'] //2つのfiledが一致しているかを確認する
         ]);
+        $role_id = request()->validate([
+            'role_id' => ['numeric', 'required']
+        ]);
+        if ($role_id !== 2) {
+            $inputs['major'] = null;
+        }
 
-        session()->flash('success', 'User has been created successfully.');
+        $user = User::create($inputs);
+        $user->roles()->attach($role_id['role_id']);
+
+        $permissions = [];
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions->pluck('id')->all() as $permission_id) {
+                if (!in_array($permission_id, $permissions)) {
+                    array_push($permissions, $permission_id);
+                } else {
+                    continue;
+                }
+            }
+        }
+        $user->permissions()->sync($permissions);
+        session()->flash('success', 'User has been created successfully.' . $user->name);
         return back();
     }
 
@@ -47,8 +65,6 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'alpha_dash'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-
-
             'password' => ['min:6', 'max:255', 'confirmed'] //2つのfiledが一致しているかを確認する
         ]);
         // if (request('avatar')) {

@@ -30,6 +30,8 @@
                   <th>Username</th>
                   <th>Avatar</th>
                   <th>Name</th>
+                  <th>Major</th>
+                  <th>Role</th>
                   <th>Registered date</th>
                   <th>Updated profile date</th>
                   <th>Delete</th>
@@ -42,6 +44,8 @@
                     <th>Username</th>
                     <th>Avatar</th>
                     <th>Name</th>
+                    <th>Major</th>
+                    <th>Role</th>
                     <th>Registered date</th>
                     <th>Updated profile date</th>
                     <th>Delete</th>
@@ -56,6 +60,12 @@
                             <img height="50px" src="{{Gravatar::src($user->email)}}" alt="">
                         </td>
                         <td>{{$user->name}}</td>
+                        <td>{{$user->major?$user->major :''}}</td>
+                        <td>
+                            @foreach ($user->roles as $role)
+                                {{$role->name}}
+                            @endforeach
+                        </td>
                         <td>{{$user->created_at->diffForhumans()}}</td>
                         <td>{{$user->updated_at->diffForhumans()}}</td>
                         <td>

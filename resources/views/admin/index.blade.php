@@ -13,8 +13,8 @@
 <h1 class="h3 mb-4 stext-gray-800">Dashboard</h1>
 <h2 class="font-italic">Welecome! {{auth()->user()->name}}</h2>
 {{-- admin case --}}
-@if (auth()->user()->userHasRole('Admin'))
-<h3 class="text-center m-5">Create Role</h3>
+@if (auth()->user()->userHasRole('Admin')|| auth()->user()->userHasRole('Guest'))
+<h3 class="text-center m-5">役職を作成(アドミンのみ)</h3>
 <div class="row">
     @if (session()->has('role-deleted'))
                 <div class="alert alert-danger">
@@ -100,7 +100,7 @@
         </div>
 
 <hr class="p-3 bold">
-<h3 class="text-center m-5">Create Permission</h3>
+<h3 class="text-center m-5">権限を作成(アドミンのみ)</h3>
 <div class="row">
 
     <div class="col-sm-3">

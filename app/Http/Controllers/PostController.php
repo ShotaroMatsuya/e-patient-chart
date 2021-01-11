@@ -13,7 +13,7 @@ class PostController extends Controller
     //
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('id', 'desc')->get();
         // $posts = auth()->user()->posts();//posts()[メソッド]とするとそのあとにメソッドチェーンをつなぐことができる
         // $posts = auth()->user()->posts; //posts[プロパティ]とするとcollection型の配列が取得できる(foreachで回せる)
 
@@ -32,7 +32,6 @@ class PostController extends Controller
     {
         $doctors = User::all()->whereNotNull('major');
         // dd($doctors);
-        dd(auth()->user);
         $this->authorize('create', Post::class); //PostPolicyクラスで定義されているmethodをセット、第２引数にPostモデルをセット
 
         return view('admin.posts.create', ['doctors' => $doctors]);

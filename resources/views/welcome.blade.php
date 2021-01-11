@@ -86,6 +86,10 @@
                 <div class="title m-b-md">
                     電子カルテ
                 </div>
+                <div class="links">
+                    <a href="/login/guest">電カルを覗いてみる</a>
+
+                </div>
 
 
 
