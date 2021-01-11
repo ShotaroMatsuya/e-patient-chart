@@ -19,6 +19,9 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function viewAny(User $user)
     {
         //
+        if ($user->userHasRole('admin')) {
+            return true;
+        }
     }
 
     /**
@@ -34,13 +37,8 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
         if ($user->userHasRole('admin')) {
             return true;
         }
-        if ($user->userHasRole('moderator')) {
-            return true;
-        }
-        if ($user->userHasRole('manager')) {
-            return true;
-        }
-        if ($user->id == $model->id) {
+
+        if ($user->id === $model->id) {
             return true;
         }
         // return $user->id == $model->id;//アクセスユーザーと表示しているuserのidが一致していたらtrue
@@ -56,6 +54,9 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function create(User $user)
     {
         //
+        if ($user->userHasRole('admin')) {
+            return true;
+        }
     }
 
     /**
@@ -68,6 +69,12 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function update(User $user, User $model)
     {
         //
+        if ($user->userHasRole('admin')) {
+            return true;
+        }
+        if ($user->id === $model->id) {
+            return true;
+        }
     }
 
     /**
@@ -80,6 +87,9 @@ class UserPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function delete(User $user, User $model)
     {
         //
+        if ($user->userHasRole('admin')) {
+            return true;
+        }
     }
 
     /**

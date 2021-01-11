@@ -8,6 +8,8 @@ Route::delete('/users/{user}/destroy', 'UserController@destroy')->name('user.des
 Route::middleware('role:ADMIN', 'auth')->group(function () {
     //Kernelに登録したroleミドルウェアを適用、userのroleがAdminだったらアクセス可となる
     Route::get('/users', 'UserController@index')->name('users.index');
+    Route::get('/users/create', 'UserController@create')->name('users.create');
+    Route::post('/users/create', 'UserController@store')->name('user.profile.store');
     Route::put('/users/{user}/attach', 'UserController@attach')->name('user.role.attach');
     Route::put('/users/{user}/detach', 'UserController@detach')->name('user.role.detach');
 });

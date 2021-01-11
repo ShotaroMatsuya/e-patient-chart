@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'name', 'avatar', 'email', 'password'
+        'username', 'name', 'avatar', 'email', 'password', 'major'
     ];
 
     /**
@@ -98,5 +98,15 @@ class User extends Authenticatable
         if ($this->major == '病理部' || $this->major == '放射線科' || $this->major == '内視鏡科' || $this->isAdmin()) {
             return true;
         }
+    }
+    public function userHasPermission($permission_name)
+    {
+        foreach ($this->roles()->permissions as $permission) {
+            //入力値を小文字に変換して文字列を比較
+            if (Str::lower($permission_name) == Str::lower($permission->name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         //
-        factory(App\User::class, 10)->create();
+        // factory(App\User::class, 10)->create();
         $user = User::where('email', 'test@test.com')->first();
         if (!$user) {
             $user1 = User::create([
@@ -82,11 +82,6 @@ class UserSeeder extends Seeder
             'email' => 'masao@kimura.com',
             'password' => 'password'
         ]);
-
-
-
-
-
         $role1 = Role::create([
             'name' => 'Admin',
             'slug' => 'admin'
@@ -115,15 +110,6 @@ class UserSeeder extends Seeder
             'slug' => 'technologist'
         ]);
 
-        $user1->roles()->attach($role1);
-        $user2->roles()->attach($role2);
-        $user3->roles()->attach($role2);
-        $user4->roles()->attach($role3);
-        $user5->roles()->attach($role2);
-        $user6->roles()->attach($role4);
-        $user7->roles()->attach($role2);
-        $user8->roles()->attach($role5);
-        $user9->roles()->attach($role6);
         $permission1 = Permission::create([
             'name' => 'Create-patient',
             'slug' => 'create-patient'
@@ -140,11 +126,33 @@ class UserSeeder extends Seeder
             'name' => 'Delete-patient',
             'slug' => 'delete-patient'
         ]);
+
         $role1->permissions()->sync([1, 2, 3, 4]);
         $role2->permissions()->sync([1, 2, 3]);
         $role3->permissions()->sync([2, 3]);
         $role4->permissions()->sync([2, 4]);
         $role5->permissions()->sync([2]);
         $role6->permissions()->sync([2]);
+
+
+        $user1->roles()->attach($role1);
+        $user2->roles()->attach($role2);
+        $user3->roles()->attach($role2);
+        $user4->roles()->attach($role3);
+        $user5->roles()->attach($role2);
+        $user6->roles()->attach($role4);
+        $user7->roles()->attach($role2);
+        $user8->roles()->attach($role5);
+        $user9->roles()->attach($role6);
+
+        $user1->permissions()->sync($role1->permissions->pluck('id')->all());
+        $user2->permissions()->sync($role2->permissions->pluck('id')->all());
+        $user3->permissions()->sync($role2->permissions->pluck('id')->all());
+        $user4->permissions()->sync($role3->permissions->pluck('id')->all());
+        $user5->permissions()->sync($role2->permissions->pluck('id')->all());
+        $user6->permissions()->sync($role4->permissions->pluck('id')->all());
+        $user7->permissions()->sync($role2->permissions->pluck('id')->all());
+        $user8->permissions()->sync($role5->permissions->pluck('id')->all());
+        $user9->permissions()->sync($role6->permissions->pluck('id')->all());
     }
 }

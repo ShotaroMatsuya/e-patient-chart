@@ -21,6 +21,25 @@ class UserController extends Controller
 
         ]);
     }
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+    public function store()
+    {
+        $inputs = request()->validate([
+            'username' => ['required', 'string', 'max:255', 'alpha_dash'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'major' => ['required', 'string'],
+
+
+            'password' => ['min:6', 'max:255', 'confirmed'] //2つのfiledが一致しているかを確認する
+        ]);
+
+        session()->flash('success', 'User has been created successfully.');
+        return back();
+    }
 
     public function update(User $user)
     {
@@ -28,8 +47,8 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', 'alpha_dash'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
-            // 'avatar' => ['file:jpeg,png,jpg'],
-            'avatar' => ['file'],
+
+
             'password' => ['min:6', 'max:255', 'confirmed'] //2つのfiledが一致しているかを確認する
         ]);
         // if (request('avatar')) {
@@ -43,15 +62,42 @@ class UserController extends Controller
     public function attach(User $user)
     {
         // dd($user); //Userモデルのインスタンスを取得
-        // dd(request('role')); //フォームから入力された値を取得
+        // dd(request('role')); //フォームから入力された値を取
         $user->roles()->attach(request('role'));
+
+        $permissions = [];
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions->pluck('id')->all() as $permission_id) {
+
+                if (!in_array($permission_id, $permissions)) {
+
+                    array_push($permissions, $permission_id);
+                } else {
+                    continue;
+                }
+            }
+        }
+        //pluckメソッドはcollectionから指定したカラムを配列で取得
+        $user->permissions()->sync($permissions);
         session()->flash('success', 'User has been attached successfully.');
         return back();
     }
     public function detach(User $user)
     {
-
         $user->roles()->detach(request('role'));
+        $permissions = [];
+        foreach ($user->roles as $role) {
+            foreach ($role->permissions->pluck('id')->all() as $permission_id) {
+                if (!in_array($permission_id, $permissions)) {
+
+                    array_push($permissions, $permission_id);
+                } else {
+                    continue;
+                }
+            }
+        }
+        $user->permissions()->sync($permissions);
+
         session()->flash('success', 'User has been detached successfully.');
         return back();
     }

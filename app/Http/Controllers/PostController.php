@@ -32,6 +32,7 @@ class PostController extends Controller
     {
         $doctors = User::all()->whereNotNull('major');
         // dd($doctors);
+        dd(auth()->user);
         $this->authorize('create', Post::class); //PostPolicyクラスで定義されているmethodをセット、第２引数にPostモデルをセット
 
         return view('admin.posts.create', ['doctors' => $doctors]);

@@ -21,6 +21,7 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function viewAny(User $user)
     {
         //
+
     }
 
     /**
@@ -33,7 +34,12 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function view(User $user, Post $post)
     {
         //自分の患者のみ見れる
-        return $user->id === $post->user_id;
+        if ($user->id === $post->user_id) {
+            return true;
+        }
+        if ($user->userHasPermission('read-patient')) {
+            return true;
+        }
     }
 
     /**
@@ -44,7 +50,9 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
      */
     public function create(User $user)
     {
-        return $user->is($user);
+        // if ($user->userHasPermission('Create-patient')) {
+        //     return true;
+        // }
     }
 
     /**
@@ -57,7 +65,12 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
     public function update(User $user, Post $post)
     {
         //ownerのみがpostをupdateできるようにする
-        return $user->id === $post->user_id;
+        if ($user->id === $post->user_id) {
+            return true;
+        }
+        if ($user->userHasPermission('edit-patient')) {
+            return true;
+        }
     }
 
     /**
@@ -69,7 +82,13 @@ class PostPolicy //Policyクラスでアクセス権限を設定(モデルとセ
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->user_id;
+
+        if ($user->id === $post->user_id) {
+            return true;
+        }
+        if ($user->userHasPermission('delete-patient')) {
+            return true;
+        }
         //
     }
 
