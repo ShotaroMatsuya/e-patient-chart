@@ -15,4 +15,9 @@ class Result extends Model
     {
         return $this->belongsToMany(User::class);
     }
+    public function getUser($user_id)
+    {
+        $doctors = User::all()->whereNotNull('major');
+        return $doctors->where('id', $user_id)->first();
+    }
 }

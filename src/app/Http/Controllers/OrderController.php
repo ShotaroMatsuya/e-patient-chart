@@ -41,7 +41,6 @@ class OrderController extends Controller
     }
     public function edit(Order $order)
     {
-
-        return view('admin.orders.edit')->with('order', $order);
+        return view('admin.orders.edit')->with('order', $order)->with('doctors', User::all()->whereNotNull('major'));
     }
 }
