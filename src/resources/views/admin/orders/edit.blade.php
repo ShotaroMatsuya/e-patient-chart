@@ -54,27 +54,35 @@
                 <p class="lead">詳細：{{ $order->post->description }}</p>
             </div>
             <div class="card-header">
-                検査情報
+                <div class="d-flex justify-content-between">
+                    検査情報
+                    <a href="{{route('results.create',$order->id)}}" class="btn btn-success">新規作成</a>
+                </div>
             </div>
             <div class="card-body">
                 <p class="lead">検査施行日：{{ $order->executed_at->diffForHumans() }}</p>
-                <p class="lead">検査依頼日：{{ $order->created_at->diffForHumans() }}</p>
                 <p class="lead">最終編集日：{{ $order->updated_at->diffForHumans() }}</p>
                 @if ($order->results->count() > 0 )
                 @foreach ($order->results as $result)
                 <div class="card mt-3">
                     <div class="card-header">
-                        検査診断名: {{ $result->exam_diagnosis }}
+                        <div class="d-flex justify-content-between">
+                            検査診断名: {{ $result->exam_diagnosis }}
+                            <a class="btn btn-sm btn-primary" style="vertical-align: middle;" href="{{ route('results.edit', $result->id) }}">編集</a>
+                        </div>
+
                     </div>
                     <div class="card-body">
                         検査詳細: {{
                             $result->description }}
-                        <img src="{{ $result->image }}" />
+                        <img src="{{ $result->image }}" >
                     </div>
                     <div class="card-footer">
-                        <p>作成日: {{ $result->created_at }}
-                        </p>
-                        <p>作成者: {{ $result->user_id }}</p>
+                        <div class="d-flex justify-content-between">
+                            <p>作成日: {{ $result->created_at }}
+                            </p>
+                            <p>作成者: {{ $result->getUser($result->user_id)->name }}</p>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -87,11 +95,7 @@
                 @endif
             </div>
             <div class="card-footer">
-                @if ($order->isFinished === 0)
-                <a href="{{route('orders.create',$order->id)}}" class="btn btn-success">入力</a>
-                @else
-                    <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-primary">編集</a>
-                @endif
+
             </div>
         </div>
 
