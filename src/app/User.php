@@ -109,4 +109,8 @@ class User extends Authenticatable
         }
         return false;
     }
+    public function result()
+    {
+        return $this->belongsTo(Result::class);
+    }
 }
