@@ -19,7 +19,6 @@ class CreateResultsTable extends Migration
             $table->text('description');
             $table->string('image');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('post_id')->constrained()->onDelete('cascade');
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
