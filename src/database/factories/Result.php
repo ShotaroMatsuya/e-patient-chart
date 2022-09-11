@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Result::class, function (Faker $faker) {
     return [
         //
-        'exam-diagnosis' => $faker->sentence(1),
+        'exam_diagnosis' => $faker->sentence(1),
         'description' => $faker->paragraph,
         'image' => $faker->imageUrl(360,360,'animals', true, 'cats'),
         'user_id' => $faker->numberBetween(31,33),
