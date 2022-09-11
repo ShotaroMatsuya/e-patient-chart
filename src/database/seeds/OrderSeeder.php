@@ -14,13 +14,13 @@ class OrderSeeder extends Seeder
     public function run()
     {
         //
-        $exam1 = Exam::create([
+        Exam::create([
             'name' => '病理部'
         ]);
-        $exam2 = Exam::create([
+        Exam::create([
             'name' => '内視鏡科'
         ]);
-        $exam3 = Exam::create([
+        Exam::create([
             'name' => '放射線科'
         ]);
         factory(App\Order::class, 20)->create();
